@@ -6,6 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +18,7 @@ public class User {
     @NotEmpty
     private String username;
 
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+    @Size(min = 5)
     private String password;
 
     private Boolean enable = true;
