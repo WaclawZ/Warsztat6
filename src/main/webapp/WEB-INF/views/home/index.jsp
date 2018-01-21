@@ -12,5 +12,7 @@
 </head>
 <body>
 <h1 style="color: royalblue">Tweeter</h1>
+<div style="alignment: center">Formlarz dodania wpisu</div>
+<div style="alignment: center">Wszystkie wpisy od najnowszego</div>
 </body>
 </html>

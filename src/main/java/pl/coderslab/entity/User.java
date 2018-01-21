@@ -7,25 +7,31 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Can't be empty")
     private String username;
 
-    @Size(min = 5)
+    @Size(min = 5, message = "This password is to short")
+    @NotEmpty(message = "Can't be empty")
     private String password;
 
     private Boolean enable = true;
 
     @NotEmpty
-    @Email
+    @Email(message = "This is not an email address")
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Tweet> tweets = new ArrayList<>();
 
     public User(){
     }

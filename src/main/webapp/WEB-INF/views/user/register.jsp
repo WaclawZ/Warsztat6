@@ -21,8 +21,9 @@
         <form:errors path="email"/><br>
         Password: <form:password path="password"/>
         <form:errors path="password"/><br>
-        <input type="submit"/>
+        <input type="submit" value="register"/>
         <form:errors path="*"/>
     </form:form>
+<br>Do you have and account? <a href="/user/login">Login now</a>.
 </body>
 </html>

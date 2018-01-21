@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.UserDao;
 import pl.coderslab.entity.User;
 
@@ -38,7 +35,8 @@ public class UserController {
         userDao.save(user);
 
         //Save user to session
-
+        HttpSession session = request.getSession();
+        session.setAttribute("user",user);
 
         return "redirect:/";
     }
@@ -57,9 +55,20 @@ public class UserController {
             if(user != null && BCrypt.checkpw(password, user.getPassword())) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user",user);
-                return "home/index";
+                return "/home/index";
             }
         }
         return "user/login";
+    }
+
+    //tymczasowa akcja do usuwania uzytkownika
+
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public String delete(@PathVariable Long id){
+        User user = userDao.findOne(id);
+        String mail = user.getEmail();
+        userDao.delete(user);
+        return "User with mail: "+mail+" and id: "+id+" was deleted;";
     }
 }

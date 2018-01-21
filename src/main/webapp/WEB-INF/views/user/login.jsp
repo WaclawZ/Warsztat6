@@ -15,7 +15,8 @@
     <form method="post" action="#">
         Email: <input type="text" name="email"><br>
         Password: <input type="password" name="password"><br>
-        <input type="submit">
+        <input type="submit" value="login"><br>
+        Don't have an account? <a href="/user/register">Register now</a>.
     </form>
 </body>
 </html>
